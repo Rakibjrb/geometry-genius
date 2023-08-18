@@ -58,21 +58,40 @@ function short(
   const setElementId = findElementNodes(target, setIndex1, setIndex2);
   elemenValueSet(setElementId, result);
 }
-
-function calculator1(target) {
-  short(target, baseHeight, 5, 1, 9, 7, 1);
+//this function will convert cm value to meter when you click to meter button
+function cm2mConvert(target) {
+  const cmId = target.parentNode.childNodes[1].id;
+  const cmIdValue = parseFloat(document.getElementById(cmId).innerText);
+  const meter = cmIdValue / 100;
+  elemenValueSet(cmId, meter);
+  const cmtomId = target.parentNode.childNodes[3].id;
+  document.getElementById(cmtomId).innerHTML = `m<sup>2</sup>`;
+}
+//random id generator function
+function randomId() {
+  return Math.floor(Math.random() * 10000000);
+}
+//this function create a h3 element with a converter button
+function appendDOM(target) {
   const calcName = target.parentNode.parentNode.childNodes[1].innerText;
   const calcValue =
     target.parentNode.parentNode.childNodes[7].childNodes[1].innerText;
   const h3 = document.createElement("h3");
   h3.classList.add("font-bold");
-  h3.innerHTML = `${calcName} <span id="cmToMeter">${calcValue}</span> <span id="cm2m">cm<sup>2</sup></span> <button class="btn mt-3 ml-2 btn-sm" id="meterBtn">To Meter</button>`;
+  h3.innerHTML = `${calcName} <span id="cmToMeter${randomId()}">${calcValue}</span> <span id="cm2m${randomId()}">cm<sup>2</sup></span> <button class="btn mt-3 ml-2 btn-sm" onclick="cm2mConvert(this)">To Meter</button>`;
   const calculationEntry = document.getElementById("calculation-entry");
   calculationEntry.appendChild(h3);
+  console.log(randomId());
+}
+function calculator1(target) {
+  short(target, baseHeight, 5, 1, 9, 7, 1);
+  appendDOM(target);
 }
 function calculator2(target) {
   short(target, widthHeight, 5, 1, 9, 7, 1);
+  appendDOM(target);
 }
 function calculateEllipseArea(target) {
   short(target, abPI, 5, 1, 9, 7, 1);
+  appendDOM(target);
 }
