@@ -54,9 +54,14 @@ function short(
   const elementID2 = findElementNodes(target, index1, index3);
   const id1Value = getInputValue(elementID1);
   const id2Value = getInputValue(elementID2);
+  if (isNaN(id1Value) || isNaN(id2Value)) {
+    alert("please enter a number");
+    return;
+  }
   const result = calculatorName(id1Value, id2Value);
   const setElementId = findElementNodes(target, setIndex1, setIndex2);
   elemenValueSet(setElementId, result);
+  appendDOM(target);
 }
 //this function will convert cm value to meter when you click to meter button
 function cm2mConvert(target) {
@@ -66,6 +71,7 @@ function cm2mConvert(target) {
   elemenValueSet(cmId, meter);
   const cmtomId = target.parentNode.childNodes[3].id;
   document.getElementById(cmtomId).innerHTML = `m<sup>2</sup>`;
+  target.disabled = true;
 }
 //random id generator function
 function randomId() {
@@ -81,17 +87,13 @@ function appendDOM(target) {
   h3.innerHTML = `${calcName} <span id="cmToMeter${randomId()}">${calcValue}</span> <span id="cm2m${randomId()}">cm<sup>2</sup></span> <button class="btn mt-3 ml-2 btn-sm" onclick="cm2mConvert(this)">To Meter</button>`;
   const calculationEntry = document.getElementById("calculation-entry");
   calculationEntry.appendChild(h3);
-  console.log(randomId());
 }
 function calculator1(target) {
   short(target, baseHeight, 5, 1, 9, 7, 1);
-  appendDOM(target);
 }
 function calculator2(target) {
   short(target, widthHeight, 5, 1, 9, 7, 1);
-  appendDOM(target);
 }
 function calculateEllipseArea(target) {
   short(target, abPI, 5, 1, 9, 7, 1);
-  appendDOM(target);
 }
